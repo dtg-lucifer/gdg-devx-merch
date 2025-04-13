@@ -24,8 +24,13 @@ export default function Navbar() {
               <Menu className="w-6 h-6" />
             )}
           </Button>
-          <Link to="/" className="font-bold text-xl">
-            GDG On Campus TIU
+          <Link to="/" className="flex items-center font-bold text-xl">
+            <img
+              src="https://storage.googleapis.com/leaderboard-pfp/assets/gdg_logo.jpeg"
+              alt=""
+              className="mr-2 rounded-full w-8 h-8"
+            />
+            <span>GDG TIU</span>
           </Link>
         </div>
 

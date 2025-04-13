@@ -41,6 +41,7 @@ jobs:
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
           # Create a temporary directory on the server with correct permissions
+          ssh $SSH_USER@$SSH_HOST "sudo rmdir $REMOTE_PATH || true"
           ssh $SSH_USER@$SSH_HOST "sudo mkdir -p $REMOTE_PATH && sudo chown $SSH_USER:$SSH_USER $REMOTE_PATH"
 
           # Deploy the build artifacts using rsync

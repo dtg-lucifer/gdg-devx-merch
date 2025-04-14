@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Menu, Search, ShoppingCart, User, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "./theme/theme-toggle";
+import { useCart } from "@/context/CartContext";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartCount } = useCart();
+  const navigate = useNavigate();
 
   return (
     <header className="top-0 z-50 sticky bg-background border-b w-full">
@@ -79,11 +82,18 @@ export default function Navbar() {
           <Button variant="ghost" size="icon">
             <User className="w-5 h-5" />
           </Button>
-          <Button variant="ghost" size="icon" className="relative">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative"
+            onClick={() => (navigate('/cart'))}
+          >
             <ShoppingCart className="w-5 h-5" />
-            <span className="top-1 right-1 absolute flex justify-center items-center bg-primary rounded-full w-4 h-4 font-medium text-[10px] text-primary-foreground">
-              3
-            </span>
+            {cartCount > 0 && (
+              <span className="top-1 right-1 absolute flex justify-center items-center bg-primary rounded-full w-4 h-4 font-medium text-[10px] text-primary-foreground">
+                {cartCount}
+              </span>
+            )}
           </Button>
           <ThemeToggle />
         </div>

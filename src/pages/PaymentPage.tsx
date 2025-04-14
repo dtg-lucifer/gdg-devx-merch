@@ -2,6 +2,17 @@ import React, { useState } from "react";
 import { useLocation } from "react-router";
 import { Button } from "@/components/ui/button";
 
+
+interface Product {
+      id: number;
+      name: string;
+      price: number;
+      originalPrice?: number;
+      image: string;
+      isNew?: boolean;
+      isSale?: boolean;
+    }
+
 const PaymentPage = () => {
   const location = useLocation();
   const { products, totalAmount } = location.state || { products: [], totalAmount: 0 };
@@ -133,8 +144,8 @@ const PaymentPage = () => {
           <div className="mt-6">
             <h3 className="font-medium mb-2">Products:</h3>
             <ul className="list-disc pl-6">
-              {products.map((product) => (
-                <li key={product.id}>{product.name}</li>
+              {products.map((product: Product) => (
+                  <li key={product.id}>{product.name}</li>
               ))}
             </ul>
           </div>

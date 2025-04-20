@@ -55,6 +55,7 @@ const PaymentPage = () => {
         status: string;
         data: Record<string, unknown>;
       }>("", fd, { data: fd });
+      console.log(res.data);
     } catch (e) {
       if (e instanceof AxiosError) {
         console.error("Error submitting payment:", e.response?.data);

@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useLocation } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/context/ProductContext";
+import axios, { AxiosError } from "axios";
 
 const PaymentPage = () => {
   const location = useLocation();
+  const [error, setError] = useState<string | null>(null);
   const { products, totalAmount } = location.state || {
     products: [],
     totalAmount: 0,
@@ -29,13 +31,41 @@ const PaymentPage = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form Data:", formData);
     console.log("Uploaded Image:", uploadedImage);
     console.log("Products:", products);
     console.log("Total Amount:", totalAmount);
-    // Add logic to handle payment submission
+
+    const fd = new FormData();
+    fd.append("name", formData.name);
+    fd.append("phone", formData.phone);
+    fd.append("email", formData.email);
+    fd.append("upiId", formData.upiId);
+    if (uploadedImage) {
+      fd.append("ss", uploadedImage);
+    }
+    fd.append("products", JSON.stringify(products));
+    fd.append("totalAmount", totalAmount.toString());
+
+    try {
+      const res = await axios.post<{
+        message: string;
+        status: string;
+        data: Record<string, unknown>;
+      }>("", fd, { data: fd });
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        console.error("Error submitting payment:", e.response?.data);
+        setError(JSON.stringify(e.toJSON()));
+      } else {
+        console.error("Error submitting payment:", e);
+        setError((e as Error).message);
+      }
+    }
+
+    console.log(fd.entries());
   };
 
   return (

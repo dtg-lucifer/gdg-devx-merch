@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { Menu, Search, ShoppingCart, User, X } from "lucide-react";
+import { Menu, Search, ShoppingCart, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "./theme/theme-toggle";
@@ -37,7 +37,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <nav className="hidden md:flex md:items-center md:gap-6">
+        {/* <nav className="hidden md:flex md:items-center md:gap-6">
           <Link
             to="/"
             className="font-medium hover:text-primary text-sm transition-colors"
@@ -68,7 +68,7 @@ export default function Navbar() {
           >
             Contact
           </Link>
-        </nav>
+        </nav> */}
 
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-2 px-3 py-2 border rounded-md md:w-full md:max-w-sm">
@@ -79,14 +79,14 @@ export default function Navbar() {
               className="p-0 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
             />
           </div>
-          <Button variant="ghost" size="icon">
+          {/* <Button variant="ghost" size="icon">
             <User className="w-5 h-5" />
-          </Button>
+          </Button> */}
           <Button
             variant="ghost"
             size="icon"
             className="relative"
-            onClick={() => (navigate('/cart'))}
+            onClick={() => navigate("/cart")}
           >
             <ShoppingCart className="w-5 h-5" />
             {cartCount > 0 && (

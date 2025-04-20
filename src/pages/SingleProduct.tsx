@@ -24,21 +24,21 @@ const SingleProduct = () => {
     : 0;
 
   return (
-    <div className="container w-[80%] mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-12">
+    <div className="gap-12 grid grid-cols-1 md:grid-cols-2 mx-auto px-6 py-12 w-[80%] container">
       <div className="flex justify-center items-center">
         <div className="relative w-full max-w-lg">
           <img
             src={product.image || "/placeholder.svg"}
             alt={product.name}
-            className="rounded-lg shadow-lg object-cover w-full"
+            className="shadow-lg rounded-lg w-full object-cover"
           />
           {product.isNew && (
-            <Badge className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-md">
+            <Badge className="top-4 left-4 absolute bg-green-500 px-3 py-1 rounded-md text-white">
               New
             </Badge>
           )}
           {product.isSale && (
-            <Badge className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-md">
+            <Badge className="top-4 right-4 absolute bg-red-500 px-3 py-1 rounded-md text-white">
               -{discount}%
             </Badge>
           )}
@@ -48,13 +48,15 @@ const SingleProduct = () => {
       <div className="flex items-center">
         <div className="space-y-8">
           <div className="space-y-4">
-            <h1 className="text-3xl font-extrabold text-primary">{product.name}</h1>
+            <h1 className="font-extrabold text-primary text-3xl">
+              {product.name}
+            </h1>
             <p className="text-muted-foreground text-lg">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, vel?
             </p>
           </div>
           <div className="flex items-center gap-6">
-            <span className="text-4xl font-bold text-primary">
+            <span className="font-bold text-primary text-4xl">
               ${product.price.toFixed(2)}
             </span>
             {product.originalPrice && (
@@ -63,10 +65,10 @@ const SingleProduct = () => {
               </span>
             )}
           </div>
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex md:flex-row flex-col gap-4">
             <Button
               size="lg"
-              className="w-full md:w-auto bg-primary text-white"
+              className="bg-primary w-full md:w-auto text-white"
               onClick={() =>
                 navigate("/payment", {
                   state: { products: [product], totalAmount: product.price },
@@ -78,7 +80,7 @@ const SingleProduct = () => {
             <Button
               size="lg"
               variant="secondary"
-              className="w-full md:w-auto border border-primary text-primary"
+              className="border border-primary w-full md:w-auto text-primary"
               onClick={() =>
                 addToCart({
                   id: product.id,

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router";
 import { Button } from "@/components/ui/button";
+import { Product } from "@/context/ProductContext";
 
 const PaymentPage = () => {
   const location = useLocation();
-  const { products, totalAmount } = location.state || { products: [], totalAmount: 0 };
+  const { products, totalAmount } = location.state || {
+    products: [],
+    totalAmount: 0,
+  };
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,16 +39,16 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-6 py-12">
-      <h1 className="text-3xl font-bold mb-8">Payment Page</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="mx-auto px-6 py-12 min-h-screen container">
+      <h1 className="mb-8 font-bold text-3xl">Payment Page</h1>
+      <div className="gap-8 grid grid-cols-1 md:grid-cols-2">
         {/* Left: Payment Form */}
         <form
           onSubmit={handleSubmit}
-          className="space-y-6 bg-white p-6 rounded-lg shadow-md border"
+          className="space-y-6 bg-white shadow-md p-6 border rounded-lg"
         >
           <div>
-            <label htmlFor="name" className="block font-medium mb-2">
+            <label htmlFor="name" className="block mb-2 font-medium">
               Name
             </label>
             <input
@@ -54,12 +58,12 @@ const PaymentPage = () => {
               value={formData.name}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-2 border rounded-md"
+              className="px-4 py-2 border rounded-md w-full"
               placeholder="Enter your name"
             />
           </div>
           <div>
-            <label htmlFor="phone" className="block font-medium mb-2">
+            <label htmlFor="phone" className="block mb-2 font-medium">
               Phone Number
             </label>
             <input
@@ -69,12 +73,12 @@ const PaymentPage = () => {
               value={formData.phone}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-2 border rounded-md"
+              className="px-4 py-2 border rounded-md w-full"
               placeholder="Enter your phone number"
             />
           </div>
           <div>
-            <label htmlFor="email" className="block font-medium mb-2">
+            <label htmlFor="email" className="block mb-2 font-medium">
               Email
             </label>
             <input
@@ -84,12 +88,12 @@ const PaymentPage = () => {
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-2 border rounded-md"
+              className="px-4 py-2 border rounded-md w-full"
               placeholder="Enter your email"
             />
           </div>
           <div>
-            <label htmlFor="upiId" className="block font-medium mb-2">
+            <label htmlFor="upiId" className="block mb-2 font-medium">
               UPI ID
             </label>
             <input
@@ -99,29 +103,29 @@ const PaymentPage = () => {
               value={formData.upiId}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-2 border rounded-md"
+              className="px-4 py-2 border rounded-md w-full"
               placeholder="Enter your UPI ID"
             />
           </div>
           <div>
-            <label htmlFor="uploadImage" className="block font-medium mb-2">
+            <label htmlFor="uploadImage" className="block mb-2 font-medium">
               Upload Image
             </label>
             <input
               type="file"
               id="uploadImage"
               onChange={handleImageUpload}
-              className="w-full px-4 py-2 border rounded-md"
+              className="px-4 py-2 border rounded-md w-full"
             />
           </div>
-          <Button type="submit" className="w-full bg-primary text-white">
+          <Button type="submit" className="bg-primary w-full text-white">
             Submit Payment
           </Button>
         </form>
 
         {/* Right: Payment Summary */}
-        <div className="space-y-6 bg-white p-6 rounded-lg shadow-md border">
-          <h2 className="text-xl font-bold">Payment Summary</h2>
+        <div className="space-y-6 bg-white shadow-md p-6 border rounded-lg">
+          <h2 className="font-bold text-xl">Payment Summary</h2>
           <div className="flex justify-between">
             <span className="font-medium">Total Amount:</span>
             <span>${totalAmount.toFixed(2)}</span>
@@ -131,20 +135,20 @@ const PaymentPage = () => {
             <span>{products.length}</span>
           </div>
           <div className="mt-6">
-            <h3 className="font-medium mb-2">Products:</h3>
-            <ul className="list-disc pl-6">
-              {products.map((product) => (
+            <h3 className="mb-2 font-medium">Products:</h3>
+            <ul className="pl-6 list-disc">
+              {products.map((product: Product) => (
                 <li key={product.id}>{product.name}</li>
               ))}
             </ul>
           </div>
           <div className="mt-6">
-            <h3 className="font-medium mb-2">QR Code</h3>
-            <div className="w-48 h-48 border rounded-md flex items-center justify-center bg-gray-100">
+            <h3 className="mb-2 font-medium">QR Code</h3>
+            <div className="flex justify-center items-center bg-gray-100 border rounded-md w-48 h-48">
               <img
                 src="/qr-code-placeholder.png"
                 alt="QR Code"
-                className="object-contain w-full h-full"
+                className="w-full h-full object-contain"
               />
             </div>
           </div>

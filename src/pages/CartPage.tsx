@@ -1,15 +1,14 @@
-import React from 'react';
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from 'react-router';
+import { useNavigate } from "react-router";
 
 const CartPage = () => {
   const { cart, removeFromCart, totalAmount, clearCart } = useCart();
   const navigate = useNavigate();
 
   return (
-    <div className="container mx-auto px-6 py-12">
-      <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
+    <div className="mx-auto px-6 py-12 min-h-screen container">
+      <h1 className="mb-8 font-bold text-3xl">Your Cart</h1>
       {cart.length === 0 ? (
         <p className="text-muted-foreground">Your cart is empty.</p>
       ) : (
@@ -17,13 +16,13 @@ const CartPage = () => {
           {cart.map((item) => (
             <div
               key={item.id}
-              className="flex items-center justify-between border-b pb-4"
+              className="flex justify-between items-center pb-4 border-b"
             >
               <div className="flex items-center gap-4">
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-16 h-16 rounded-md object-cover"
+                  className="rounded-md w-16 h-16 object-cover"
                 />
                 <div>
                   <h3 className="font-medium">{item.name}</h3>
@@ -41,15 +40,19 @@ const CartPage = () => {
               </Button>
             </div>
           ))}
-          <div className="flex justify-between items-center border-t pt-4">
-            <h2 className="text-xl font-bold">Total: ${totalAmount.toFixed(2)}</h2>
+          <div className="flex justify-between items-center pt-4 border-t">
+            <h2 className="font-bold text-xl">
+              Total: ${totalAmount.toFixed(2)}
+            </h2>
             <div className="flex gap-4">
               <Button variant="secondary" onClick={clearCart}>
                 Clear Cart
               </Button>
               <Button
                 onClick={() =>
-                  navigate("/payment", { state: { products: cart, totalAmount } })
+                  navigate("/payment", {
+                    state: { products: cart, totalAmount },
+                  })
                 }
                 className="bg-primary text-white"
               >

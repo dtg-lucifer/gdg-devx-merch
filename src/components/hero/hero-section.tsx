@@ -1,33 +1,32 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const slides = [
   {
     id: 1,
-    title: "Summer Collection 2025",
-    description: "Discover our latest arrivals for the season",
-    image: "/hero_placeholder.webp?height=600&width=1200",
+    title: "DEVX Collection #1",
+    description: "Discover our latest arrivals for devx",
+    image: "/products/hero/product_1.webp",
     cta: "Shop Now",
     url: "/collections/summer",
   },
   {
     id: 2,
-    title: "Limited Edition Merch",
-    description: "Exclusive designs available for a limited time only",
-    image: "/hero_placeholder.webp?height=600&width=1200",
+    title: "DEVX Collection #2",
+    description: "Exclusive designs available for a limited time",
+    image: "/products/hero/product_2.webp",
     cta: "View Collection",
     url: "/collections/limited",
   },
-  {
-    id: 3,
-    title: "Special Offers",
-    description: "Up to 40% off on selected items",
-    image: "/hero_placeholder.webp?height=600&width=1200",
-    cta: "See Offers",
-    url: "/offers",
-  },
+  // {
+  //   id: 3,
+  //   title: "Special Offers",
+  //   description: "Up to 40% off on selected items",
+  //   image: "/hero_placeholder.webp?height=600&width=1200",
+  //   cta: "See Offers",
+  //   url: "/offers",
+  // },
 ];
 
 export default function HeroSlideshow() {
@@ -60,7 +59,7 @@ export default function HeroSlideshow() {
               <img
                 src={slide.image || "/hero_placeholder.webp"}
                 alt={slide.title}
-                className="object-cover"
+                className="w-[80%] object-cover"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-black/40" />
@@ -71,11 +70,11 @@ export default function HeroSlideshow() {
                 <p className="mb-6 max-w-md text-sm sm:text-base md:text-lg">
                   {slide.description}
                 </p>
-                <Link to={slide.url}>
+                {/* <Link to={slide.url}>
                   <Button size="lg" className="font-medium">
                     {slide.cta}
                   </Button>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

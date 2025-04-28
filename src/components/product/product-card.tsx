@@ -1,8 +1,5 @@
 import { Link } from "react-router";
-import { ShoppingCart } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useCart } from "@/context/CartContext";
 
 interface ProductCardProps {
   product: {
@@ -17,8 +14,6 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { addToCart } = useCart();
-
   return (
     <Link to={`/${product.id}`}>
       <div className="group relative bg-background hover:shadow-md p-2 border rounded-lg overflow-hidden transition-all">
@@ -26,7 +21,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <img
             src={product.image || "/placeholder.svg"}
             alt={product.name}
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className="object-cover group-hover:scale-105 transition-transform duration-300 image"
           />
           <div className="top-2 right-2 absolute flex flex-col gap-2">
             {product.isNew && (
@@ -45,22 +40,6 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
           <div className="absolute inset-0 flex justify-center items-center gap-2 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-            <Button
-              size="icon"
-              variant="secondary"
-              className="rounded-full w-9 h-9"
-              onClick={() =>
-                addToCart({
-                  id: product.id,
-                  name: product.name,
-                  price: product.price,
-                  image: product.image,
-                  quantity: 1,
-                })
-              }
-            >
-              <ShoppingCart className="w-4 h-4" />
-            </Button>
           </div>
         </div>
         <div className="space-y-1 p-1">
@@ -68,10 +47,10 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.name}
           </h3>
           <div className="flex items-center gap-2">
-            <span className="font-semibold">${product.price.toFixed(2)}</span>
+            <span className="font-semibold">₹{product.price.toFixed(2)}</span>
             {product.originalPrice && (
               <span className="text-muted-foreground text-sm line-through">
-                ${product.originalPrice.toFixed(2)}
+                ₹{product.originalPrice.toFixed(2)}
               </span>
             )}
           </div>

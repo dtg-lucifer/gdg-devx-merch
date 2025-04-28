@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router";
 import { Menu, Search, ShoppingCart, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ThemeToggle } from "./theme/theme-toggle";
 import { useCart } from "@/context/CartContext";
 
 export default function Navbar() {
@@ -95,7 +94,6 @@ export default function Navbar() {
               </span>
             )}
           </Button>
-          <ThemeToggle />
         </div>
       </div>
 

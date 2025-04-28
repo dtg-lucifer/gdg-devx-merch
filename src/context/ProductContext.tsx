@@ -2,6 +2,7 @@ import React, { createContext, useContext } from "react";
 
 export interface Product {
   id: number;
+  size: string;
   name: string;
   price: number;
   originalPrice?: number;
@@ -21,24 +22,34 @@ const ProductContext = createContext<ProductContextProps | undefined>(
 const products: Product[] = [
   {
     id: 1,
-    name: "Classic Logo T-Shirt",
-    price: 24.99,
-    image: "/product_placeholder.webp?height=400&width=400",
+    name: "Anime White DevX TShirt",
+    size: "M",
+    price: 369,
+    image: "/products/products/tshirt_white_back.webp",
     isNew: true,
   },
   {
     id: 2,
-    name: "Vintage Graphic Hoodie",
-    price: 49.99,
-    originalPrice: 69.99,
-    image: "/product_placeholder.webp?height=400&width=400",
+    name: "Anime Dark DevX TShirt",
+    size: "M",
+    price: 369,
+    originalPrice: 650,
+    image: "/products/products/tshirt_black_back.webp",
     isSale: true,
   },
   {
     id: 3,
-    name: "Premium Denim Cap",
-    price: 29.99,
-    image: "/product_placeholder.webp?height=400&width=400",
+    name: "Marvel's Spiderman DevX TShirt",
+    size: "M",
+    price: 469,
+    image: "/products/products/tshirt_marvel_back.webp",
+  },
+  {
+    id: 4,
+    name: "Marvel's Spiderman DevX TShirt with Custom Name",
+    size: "M",
+    price: 569,
+    image: "/products/products/tshirt_marvel_name_back.webp",
   },
 ];
 

@@ -6,7 +6,7 @@ const Dashboard = () => {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         <HeroSlideshow />
-        <section className="mx-auto px-4 py-16 container">
+        <section className="mx-auto py-16 container">
           <h2>Featured Products</h2>
           <ProductGrid />
         </section>

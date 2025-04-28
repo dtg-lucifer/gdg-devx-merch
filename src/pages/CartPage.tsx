@@ -27,7 +27,7 @@ const CartPage = () => {
                 <div>
                   <h3 className="font-medium">{item.name}</h3>
                   <p className="text-muted-foreground">
-                    ${item.price.toFixed(2)} x {item.quantity}
+                  ₹{item.price.toFixed(2)} x {item.quantity}
                   </p>
                 </div>
               </div>
@@ -42,7 +42,7 @@ const CartPage = () => {
           ))}
           <div className="flex justify-between items-center pt-4 border-t">
             <h2 className="font-bold text-xl">
-              Total: ${totalAmount.toFixed(2)}
+              Total: ₹{totalAmount.toFixed(2)}
             </h2>
             <div className="flex gap-4">
               <Button variant="secondary" onClick={clearCart}>
@@ -51,10 +51,10 @@ const CartPage = () => {
               <Button
                 onClick={() =>
                   navigate("/payment", {
-                    state: { products: cart, totalAmount },
+                    state: { products: cart, totalAmount, quantity: cart.length },
                   })
                 }
-                className="bg-primary text-white"
+                className="bg-primary text-black"
               >
                 Buy Now
               </Button>

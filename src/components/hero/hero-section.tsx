@@ -7,20 +7,28 @@ const slides = [
     id: 1,
     title: "DEVX Collection #1",
     description: "Discover our latest arrivals for devx",
-    image: "/products/hero/product_1.webp",
+    image: "/products/hero/new_tshirt.webp",
     cta: "Shop Now",
     url: "/collections/summer",
   },
   {
     id: 2,
     title: "DEVX Collection #2",
+    description: "Discover our latest arrivals for devx",
+    image: "/products/hero/product_1.webp",
+    cta: "Shop Now",
+    url: "/collections/summer",
+  },
+  {
+    id: 3,
+    title: "DEVX Collection #3",
     description: "Exclusive designs available for a limited time",
     image: "/products/hero/product_2.webp",
     cta: "View Collection",
     url: "/collections/limited",
   },
   // {
-  //   id: 3,
+  //   id: 4,
   //   title: "Special Offers",
   //   description: "Up to 40% off on selected items",
   //   image: "/hero_placeholder.webp?height=600&width=1200",
@@ -53,13 +61,13 @@ export default function HeroSlideshow() {
         className="flex transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
-        {slides.map((slide) => (
+        {slides.map((slide,index) => (
           <div key={slide.id} className="relative min-w-full">
             <div className="relative place-items-center grid w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
               <img
                 src={slide.image || "/hero_placeholder.webp"}
                 alt={slide.title}
-                className="w-[80%] object-cover"
+                className={((index !== 0) ? "w-[100%] object-contain slides":"w-[100%] object-cover")}
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-black/40" />

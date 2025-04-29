@@ -50,7 +50,7 @@ const handleSizeClick = (size: string) => {
 
 return (
   <>
-    <div className="gap-12 grid grid-cols-1 md:grid-cols-2  py-12  container content-container ">
+    <div className="main-content gap-12 grid grid-cols-1 md:grid-cols-2  py-12  container content-container ">
       <div className="flex justify-center items-center">
         <div className="relative w-full max-w-lg overflow-hidden aspect-square">
           <ImageZoomer

@@ -11,20 +11,19 @@ const PaymentPage = () => {
   const [errLoading, setErrLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [paymentClicked, setPaymentClicked] = useState(false);
-  const { products, totalAmount, quantity, productData } = location.state || {
+  const { products, totalAmount, quantity,  } = location.state || {
     products: [],
     totalAmount: 0,
     quantity: 0,
-    productData: {},
   };
-  console.log("product data:", productData);
+  // console.log("product data:", productData);
   const constructProductsArray = () => {
     return products.map((x: { id: number, image: string, name: string, price: number, quantity: number, size: string }) => {
       return `${x.name}:${x.size}:${x.quantity || quantity}`
     })
   }
   const productsArray = (constructProductsArray()).toString();
-  console.log("products:", productsArray)
+  // console.log("products:", productsArray)
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -32,7 +31,7 @@ const PaymentPage = () => {
     upiId: "",
     studentId: 0
   });
-  console.log("formData studentID:", formData.studentId);
+  // console.log("formData studentID:", formData.studentId);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,10 +49,10 @@ const PaymentPage = () => {
     setPaymentClicked(true);
     e.preventDefault();
     setLoading(true); //TODO:
-    console.log("Form Data:", formData);
-    console.log("Uploaded Image:", uploadedImage);
-    console.log("Products:", products);
-    console.log("Total Amount:", totalAmount);
+    // console.log("Form Data:", formData);
+    // console.log("Uploaded Image:", uploadedImage);
+    // console.log("Products:", products);
+    // console.log("Total Amount:", totalAmount);
 
     const fd = new FormData();
     fd.append("name", formData.name);
@@ -73,8 +72,8 @@ const PaymentPage = () => {
         status: string;
         data: Record<string, unknown>;
       }>("https://gdg-leaderboard-server-1019775793519.us-central1.run.app/api/v1/payment/upload", fd, { data: fd });
-      console.log("res:", res.data.data.confirmationSS);
-      console.log("type of res:", typeof res.data.data.confirmationSS);
+      // console.log("res:", res.data.data.confirmationSS);
+      // console.log("type of res:", typeof res.data.data.confirmationSS);
 
       try {
         const payload = {
@@ -90,9 +89,10 @@ const PaymentPage = () => {
           confirmationSS: res.data.data.confirmationSS as string,
         };
 
-        console.log("Payload:", payload);
+        // console.log("Payload:", payload);
 
-        const result = await axios.post<{
+        // const result = await axios.post<{
+        await axios.post<{
           data: Record<string, unknown>;
         }>(
           "https://gdg-leaderboard-email-service-1019775793519.asia-east1.run.app/api/receipt/send",
@@ -103,11 +103,12 @@ const PaymentPage = () => {
             },
           }
         );
-        console.log(result.data);
+        // console.log(result.data);
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
           setLoading(false);
+          window.location.href = "/";
         }, 4000);
       } catch (e) {
         setErrLoading(true);
@@ -124,11 +125,11 @@ const PaymentPage = () => {
       }
     }
 
-    console.log(fd.entries());
+    // console.log(fd.entries());
   };
 
   return (
-    <div className="mx-auto px-6 py-12 min-h-screen container">
+    <div className="main-content mx-auto px-6 py-12 min-h-screen container">
       {loading &&
         <>
           <div className="fixed top-0 left-0 w-full h-full z-10 bg-transparent flex justify-center items-center">

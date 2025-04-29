@@ -7,7 +7,7 @@ const CartPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="mx-auto px-6 py-12 min-h-screen container">
+    <div className="main-content mx-auto px-6 py-12 min-h-screen container">
       <h1 className="mb-8 font-bold text-3xl">Your Cart</h1>
       {cart.length === 0 ? (
         <p className="text-muted-foreground">Your cart is empty.</p>

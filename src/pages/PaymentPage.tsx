@@ -112,7 +112,7 @@ const PaymentPage = () => {
         }, 4000);
       } catch (e) {
         setErrLoading(true);
-        // console.log(e);
+        console.log(e);
       }
     } catch (e) {
       setErrLoading(true);

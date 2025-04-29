@@ -7,7 +7,10 @@ import axios, { AxiosError } from "axios";
 const PaymentPage = () => {
   const location = useLocation();
   const [, setError] = useState<string | null>(null);
-
+  const [loading, setLoading] = useState(false);
+  const [errLoading, setErrLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [paymentClicked, setPaymentClicked] = useState(false);
   const { products, totalAmount, quantity, productData } = location.state || {
     products: [],
     totalAmount: 0,
@@ -15,13 +18,13 @@ const PaymentPage = () => {
     productData: {},
   };
   console.log("product data:", productData);
-  const constructProductsArray=()=>{
-    return products.map((x : {id: number, image: string, name: string, price: number, quantity: number, size: string})=>{
+  const constructProductsArray = () => {
+    return products.map((x: { id: number, image: string, name: string, price: number, quantity: number, size: string }) => {
       return `${x.name}:${x.size}:${x.quantity || quantity}`
     })
   }
   const productsArray = (constructProductsArray()).toString();
-  console.log("products:",productsArray)
+  console.log("products:", productsArray)
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -44,7 +47,9 @@ const PaymentPage = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setPaymentClicked(true);
     e.preventDefault();
+    setLoading(true); //TODO:
     console.log("Form Data:", formData);
     console.log("Uploaded Image:", uploadedImage);
     console.log("Products:", products);
@@ -70,7 +75,7 @@ const PaymentPage = () => {
       }>("https://gdg-leaderboard-server-1019775793519.us-central1.run.app/api/v1/payment/upload", fd, { data: fd });
       console.log("res:", res.data.data.confirmationSS);
       console.log("type of res:", typeof res.data.data.confirmationSS);
-      
+
       try {
         const payload = {
           studentId: parseInt(formData.studentId.toString()),
@@ -80,13 +85,13 @@ const PaymentPage = () => {
           email: formData.email,
           upiId: formData.upiId,
           amount: parseFloat(totalAmount.toString()),
-          items: productsArray, // Make sure productsArray is already an array, otherwise JSON.stringify it
+          items: productsArray,
           status: "CONFIRMED",
           confirmationSS: res.data.data.confirmationSS as string,
         };
-      
+
         console.log("Payload:", payload);
-      
+
         const result = await axios.post<{
           data: Record<string, unknown>;
         }>(
@@ -98,12 +103,18 @@ const PaymentPage = () => {
             },
           }
         );
-      
         console.log(result.data);
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+          setLoading(false);
+        }, 4000);
       } catch (e) {
+        setErrLoading(true);
         console.log(e);
       }
     } catch (e) {
+      setErrLoading(true);
       if (e instanceof AxiosError) {
         setError(JSON.stringify(e.toJSON()));
         console.error("Error submitting payment:", e.response?.data);
@@ -118,6 +129,39 @@ const PaymentPage = () => {
 
   return (
     <div className="mx-auto px-6 py-12 min-h-screen container">
+      {loading &&
+        <>
+          <div className="fixed top-0 left-0 w-full h-full z-10 bg-transparent flex justify-center items-center">
+            <div className="loader w-1/2 h-1/2 flex flex-col justify-center items-center bg-white bg-opacity-20">
+              {(errLoading) ?
+                <>
+                  {alert('Error!')}
+                  {window.location.href = '/'}
+                </> :
+                <>
+                  {(success) ?
+                    <>
+                      {/* <div className=" w-20 h-20 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div> */}
+                      <svg
+                        className="w-20 h-20 text-green-500 animate-scale-in"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <div>SUCCESS!</div>
+                    </> :
+                    <>
+                      <div className=" w-20 h-20 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
+                      <div>LOADING</div>
+                    </>}
+                </>
+              }
+            </div>
+          </div>
+        </>}
       <h1 className="mb-8 font-bold text-3xl">Payment Page</h1>
       <div className="gap-8 grid grid-cols-1 md:grid-cols-2">
         {/* Left: Payment Form */}
@@ -211,9 +255,13 @@ const PaymentPage = () => {
               className="px-4 py-2 border rounded-md w-full"
             />
           </div>
-          <Button type="submit" className="bg-blend-darken w-full text-black">
-            Submit Payment
-          </Button>
+          {
+            (loading) ? <> </> : (!paymentClicked) &&
+              <Button type="submit" className="bg-blend-darken w-full text-black">
+                Submit Payment
+              </Button>
+          }
+
         </form>
 
         {/* Right: Payment Summary */}
@@ -240,7 +288,7 @@ const PaymentPage = () => {
             <h3 className="mb-2 font-medium">QR Code</h3>
             <div className="flex justify-center items-center bg-gray-100 border rounded-md w-48 h-48">
               <img
-                src="/qr-code-placeholder.png"
+                src="https://storage.googleapis.com/leaderboard-pfp/assets/qrcode.png"
                 alt="QR Code"
                 className="w-full h-full object-contain"
               />

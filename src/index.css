@@ -2,9 +2,11 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-.image{
+
+.image {
   max-width: 100%;
 }
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -128,11 +130,13 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
-  img{
-    max-width:none;
+
+  img {
+    max-width: none;
   }
 }
 
@@ -141,13 +145,12 @@ button:not(:disabled),
   @apply cursor-pointer;
 }
 
-html{
+html {
   overflow-x: hidden;
 }
 
-body{
-  padding-left: 12rem;
-  padding-right: 12rem;
+body {
+
   width: 100vw;
   overflow-x: hidden;
 }
@@ -166,8 +169,15 @@ body{
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .App {
@@ -182,19 +192,62 @@ body{
   color: #fff;
 }
 
-.product-page-image-container{
+.product-page-image-container {
   padding: 0 !important;
   overflow: hidden !important;
 }
-#img-zoomed{
+
+#img-zoomed {
   height: 1000px;
   width: 1000px !important;
   aspect-ratio: 1/1;
   cursor: crosshair;
 }
-#main-img{
+
+#main-img {
   width: 100%;
 }
+
+.loader {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* SUCCESS ANIMATION: */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out forwards;
+}
+
 
 /* scroll bar styles: */
 
@@ -221,24 +274,8 @@ body{
   background-color: #4b4b4b;
 }
 
-@media (max-width: 1580px) {
-  body{
-    padding-left: 10rem;
-    padding-right: 10rem;
-  }
-}
-@media (max-width: 1270px) {
-  body{
-    padding-left: 5rem;
-    padding-right: 5rem;
-  }
-}
 @media (max-width: 768px) {
-  body{
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .slides{
+  .slides {
     width: 100%;
   }
 }

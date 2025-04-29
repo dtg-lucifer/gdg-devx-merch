@@ -38,7 +38,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     // Log the updated cart after the state has been updated
     setTimeout(() => {
-      console.log("Updated cart:", cart);
+      // console.log("Updated cart:", cart);
     }, 0);
   };
 

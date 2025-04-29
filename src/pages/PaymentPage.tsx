@@ -108,6 +108,7 @@ const PaymentPage = () => {
         setTimeout(() => {
           setSuccess(false);
           setLoading(false);
+          window.location.href = "/";
         }, 4000);
       } catch (e) {
         setErrLoading(true);
@@ -128,7 +129,7 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="mx-auto px-6 py-12 min-h-screen container">
+    <div className="main-content mx-auto px-6 py-12 min-h-screen container">
       {loading &&
         <>
           <div className="fixed top-0 left-0 w-full h-full z-10 bg-transparent flex justify-center items-center">

@@ -95,7 +95,7 @@ const PaymentPage = () => {
         await axios.post<{
           data: Record<string, unknown>;
         }>(
-          "https://gdg-leaderboard-email-service-1019775793519.asia-east1.run.app/api/receipt/send",
+          "https://gdg-email-service-1011506502548.asia-south1.run.app/api/receipt/send",
           payload,
           {
             headers: {

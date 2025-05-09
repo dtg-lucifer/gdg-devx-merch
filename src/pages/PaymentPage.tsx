@@ -319,7 +319,7 @@ const PaymentPage = () => {
             <h3 className="mb-2 font-medium">QR Code</h3>
             <div className="flex justify-center items-center bg-gray-100 border rounded-md w-48 h-48">
               <img
-                src="https://storage.googleapis.com/leaderboard-pfp/assets/qrcode.png"
+                src="https://storage.googleapis.com/gdgoctiu-bucket/assets/qrcode.png"
                 alt="QR Code"
                 className="w-full h-full object-contain"
               />

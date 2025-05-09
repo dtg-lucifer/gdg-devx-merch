@@ -20,15 +20,13 @@ export default function Navbar() {
             className="md:hidden mr-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
+            {isMenuOpen
+              ? <X className="w-6 h-6" />
+              : <Menu className="w-6 h-6" />}
           </Button>
           <Link to="/" className="flex items-center font-bold text-xl">
             <img
-              src="https://storage.googleapis.com/leaderboard-pfp/assets/gdg_logo.jpeg"
+              src="https://storage.googleapis.com/gdgoctiu-bucket/assets/gdg_logo.jpeg"
               alt=""
               className="mr-2 rounded-full w-8 h-8"
             />
@@ -36,7 +34,8 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* <nav className="hidden md:flex md:items-center md:gap-6">
+        {
+          /* <nav className="hidden md:flex md:items-center md:gap-6">
           <Link
             to="/"
             className="font-medium hover:text-primary text-sm transition-colors"
@@ -67,7 +66,8 @@ export default function Navbar() {
           >
             Contact
           </Link>
-        </nav> */}
+        </nav> */
+        }
 
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-2 px-3 py-2 border rounded-md md:w-full md:max-w-sm">
@@ -78,9 +78,11 @@ export default function Navbar() {
               className="p-0 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
             />
           </div>
-          {/* <Button variant="ghost" size="icon">
+          {
+            /* <Button variant="ghost" size="icon">
             <User className="w-5 h-5" />
-          </Button> */}
+          </Button> */
+          }
           <Button
             variant="ghost"
             size="icon"

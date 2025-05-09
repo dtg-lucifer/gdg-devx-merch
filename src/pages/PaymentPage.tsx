@@ -11,17 +11,27 @@ const PaymentPage = () => {
   const [errLoading, setErrLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [paymentClicked, setPaymentClicked] = useState(false);
-  const { products, totalAmount, quantity,  } = location.state || {
+  const { products, totalAmount, quantity, productData } = location.state || {
     products: [],
     totalAmount: 0,
     quantity: 0,
   };
-  // console.log("product data:", productData);
   const constructProductsArray = () => {
-    return products.map((x: { id: number, image: string, name: string, price: number, quantity: number, size: string }) => {
-      return `${x.name}:${x.size}:${x.quantity || quantity}`
-    })
-  }
+    return products.map(
+      (
+        x: {
+          id: number;
+          image: string;
+          name: string;
+          price: number;
+          quantity: number;
+          size: string;
+        },
+      ) => {
+        return `${x.name}:${x.size}:${x.quantity || quantity}`;
+      },
+    );
+  };
   const productsArray = (constructProductsArray()).toString();
   // console.log("products:", productsArray)
   const [formData, setFormData] = useState({
@@ -29,7 +39,7 @@ const PaymentPage = () => {
     phone: "",
     email: "",
     upiId: "",
-    studentId: 0
+    studentId: 0,
   });
   // console.log("formData studentID:", formData.studentId);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
@@ -64,14 +74,18 @@ const PaymentPage = () => {
     }
     fd.append("products", productsArray);
     fd.append("totalAmount", totalAmount.toString());
-    fd.append("specialName", "none");
+    fd.append("specialName", productData.instructions);
 
     try {
       const res = await axios.post<{
         message: string;
         status: string;
         data: Record<string, unknown>;
-      }>("https://gdg-leaderboard-1011506502548.asia-south1.run.app/api/v1/payment/upload", fd, { data: fd });
+      }>(
+        "https://gdg-leaderboard-1011506502548.asia-south1.run.app/api/v1/payment/upload",
+        fd,
+        { data: fd },
+      );
       // console.log("res:", res.data.data.confirmationSS);
       // console.log("type of res:", typeof res.data.data.confirmationSS);
 
@@ -101,7 +115,7 @@ const PaymentPage = () => {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         );
         // console.log(result.data);
         setSuccess(true);
@@ -131,38 +145,52 @@ const PaymentPage = () => {
   return (
     <div className="mx-auto px-6 py-12 min-h-screen main-content container">
       {loading &&
-        <>
-          <div className="top-0 left-0 z-10 fixed flex justify-center items-center bg-transparent w-full h-full">
-            <div className="flex flex-col justify-center items-center bg-white bg-opacity-20 w-1/2 h-1/2 loader">
-              {(errLoading) ?
-                <>
-                  {alert('Error!')}
-                  {window.location.href = '/'}
-                </> :
-                <>
-                  {(success) ?
+        (
+          <>
+            <div className="top-0 left-0 z-10 fixed flex justify-center items-center bg-transparent w-full h-full">
+              <div className="flex flex-col justify-center items-center bg-white bg-opacity-20 w-1/2 h-1/2 loader">
+                {errLoading
+                  ? (
                     <>
-                      {/* <div className="border-4 border-gray-200 border-t-blue-500 rounded-full w-20 h-20 animate-spin"></div> */}
-                      <svg
-                        className="w-20 h-20 text-green-500 animate-scale-in"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <div>SUCCESS!</div>
-                    </> :
+                      {alert("Error!")}
+                      {window.location.href = "/"}
+                    </>
+                  )
+                  : (
                     <>
-                      <div className="border-4 border-gray-200 border-t-blue-500 rounded-full w-20 h-20 animate-spin"></div>
-                      <div>LOADING</div>
-                    </>}
-                </>
-              }
+                      {success
+                        ? (
+                          <>
+                            {/* <div className="border-4 border-gray-200 border-t-blue-500 rounded-full w-20 h-20 animate-spin"></div> */}
+                            <svg
+                              className="w-20 h-20 text-green-500 animate-scale-in"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                            <div>SUCCESS!</div>
+                          </>
+                        )
+                        : (
+                          <>
+                            <div className="border-4 border-gray-200 border-t-blue-500 rounded-full w-20 h-20 animate-spin">
+                            </div>
+                            <div>LOADING</div>
+                          </>
+                        )}
+                    </>
+                  )}
+              </div>
             </div>
-          </div>
-        </>}
+          </>
+        )}
       <h1 className="mb-8 font-bold text-3xl">Payment Page</h1>
       <div className="gap-8 grid grid-cols-1 md:grid-cols-2">
         {/* Left: Payment Form */}
@@ -256,13 +284,15 @@ const PaymentPage = () => {
               className="px-4 py-2 border rounded-md w-full"
             />
           </div>
-          {
-            (loading) ? <> </> : (!paymentClicked) &&
-              <Button type="submit" className="bg-blend-darken w-full text-black">
+          {loading ? <></> : (!paymentClicked) &&
+            (
+              <Button
+                type="submit"
+                className="bg-blend-darken w-full text-black"
+              >
                 Submit Payment
               </Button>
-          }
-
+            )}
         </form>
 
         {/* Right: Payment Summary */}

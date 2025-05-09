@@ -71,7 +71,7 @@ const PaymentPage = () => {
         message: string;
         status: string;
         data: Record<string, unknown>;
-      }>("https://gdg-leaderboard-server-1019775793519.us-central1.run.app/api/v1/payment/upload", fd, { data: fd });
+      }>("https://gdg-leaderboard-1011506502548.asia-south1.run.app/api/v1/payment/upload", fd, { data: fd });
       // console.log("res:", res.data.data.confirmationSS);
       // console.log("type of res:", typeof res.data.data.confirmationSS);
 
@@ -129,11 +129,11 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="main-content mx-auto px-6 py-12 min-h-screen container">
+    <div className="mx-auto px-6 py-12 min-h-screen main-content container">
       {loading &&
         <>
-          <div className="fixed top-0 left-0 w-full h-full z-10 bg-transparent flex justify-center items-center">
-            <div className="loader w-1/2 h-1/2 flex flex-col justify-center items-center bg-white bg-opacity-20">
+          <div className="top-0 left-0 z-10 fixed flex justify-center items-center bg-transparent w-full h-full">
+            <div className="flex flex-col justify-center items-center bg-white bg-opacity-20 w-1/2 h-1/2 loader">
               {(errLoading) ?
                 <>
                   {alert('Error!')}
@@ -142,7 +142,7 @@ const PaymentPage = () => {
                 <>
                   {(success) ?
                     <>
-                      {/* <div className=" w-20 h-20 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div> */}
+                      {/* <div className="border-4 border-gray-200 border-t-blue-500 rounded-full w-20 h-20 animate-spin"></div> */}
                       <svg
                         className="w-20 h-20 text-green-500 animate-scale-in"
                         fill="none"
@@ -155,7 +155,7 @@ const PaymentPage = () => {
                       <div>SUCCESS!</div>
                     </> :
                     <>
-                      <div className=" w-20 h-20 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
+                      <div className="border-4 border-gray-200 border-t-blue-500 rounded-full w-20 h-20 animate-spin"></div>
                       <div>LOADING</div>
                     </>}
                 </>

@@ -5,7 +5,7 @@ import ImageZoomer from "@/components/single-product/image_zoomer";
 import { ShieldCheck } from "lucide-react";
 import { HeadphonesIcon } from "lucide-react";
 import { Product, useProducts } from "@/context/ProductContext";
-import { useCart } from "@/context/CartContext";
+// import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -15,7 +15,7 @@ const SingleProduct = () => {
   const [selectedSize, setSelectedSize] = useState<string>("M");
   const [quantity, setQuantity] = useState<number>(1);
   const [sName, setSName] = useState<string>();
-  const { addToCart } = useCart();
+  // const { addToCart } = useCart();
   const navigate = useNavigate();
 
   const product = products.find((p) => p.id === Number(productId));
@@ -37,10 +37,12 @@ const SingleProduct = () => {
       productName: (product as Product).name,
       productPrice: (product as Product).price,
     };
+    console.log("Sending data:", data);
     return data;
   }
   const handleSizeClick = (size: string) => {
     setSelectedSize(size); // Update the selected size
+    console.log(`Selected size: ${size}`);
   };
 
   return (
@@ -159,7 +161,7 @@ const SingleProduct = () => {
               >
                 Buy Now
               </Button>
-              <Button
+              {/* <Button
                 size="lg"
                 variant="secondary"
                 className="border border-primary md:w-auto text-primary"
@@ -174,7 +176,7 @@ const SingleProduct = () => {
                   })}
               >
                 Add to Cart
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

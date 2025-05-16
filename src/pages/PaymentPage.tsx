@@ -28,12 +28,12 @@ const PaymentPage = () => {
           size: string;
         },
       ) => {
-        return `${x.name}:${x.size}:${x.quantity || quantity}`;
+        return `${x.name}:${productData.size}:${x.quantity || quantity}`;
       },
     );
   };
   const productsArray = (constructProductsArray()).toString();
-  // console.log("products:", productsArray)
+  console.log("products:", productsArray)
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -58,7 +58,7 @@ const PaymentPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     setPaymentClicked(true);
     e.preventDefault();
-    setLoading(true); //TODO:
+    setLoading(true); 
     // console.log("Form Data:", formData);
     // console.log("Uploaded Image:", uploadedImage);
     // console.log("Products:", products);
@@ -311,7 +311,7 @@ const PaymentPage = () => {
             <h3 className="mb-2 font-medium">Products:</h3>
             <ul className="pl-6 list-disc">
               {products.map((product: Product) => (
-                <li key={product.id}>{product.name} : {product.size}</li>
+                <li key={product.id}>{product.name} : {productData.size}</li>
               ))}
             </ul>
           </div>

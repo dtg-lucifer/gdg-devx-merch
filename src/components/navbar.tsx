@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
-import { Menu, Search, ShoppingCart, X } from "lucide-react";
+import { Link,  } from "react-router";
+// import { Link, useNavigate } from "react-router";
+// import { Menu, Search, ShoppingCart, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useCart } from "@/context/CartContext";
+// import { useCart } from "@/context/CartContext";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { cartCount } = useCart();
-  const navigate = useNavigate();
+  // const { cartCount } = useCart();
+  // const navigate = useNavigate();
 
   return (
     <header className="top-0 z-50 sticky bg-background border-b w-full">
@@ -83,7 +85,7 @@ export default function Navbar() {
             <User className="w-5 h-5" />
           </Button> */
           }
-          <Button
+          {/* <Button
             variant="ghost"
             size="icon"
             className="relative"
@@ -95,7 +97,7 @@ export default function Navbar() {
                 {cartCount}
               </span>
             )}
-          </Button>
+          </Button> */}
         </div>
       </div>
 
